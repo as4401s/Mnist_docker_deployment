@@ -1,0 +1,32 @@
+# --- Base Image ---
+# Start with a lightweight Python 3.9 image.
+FROM python:3.9-slim
+
+# --- Set Working Directory ---
+# Create a directory inside the container to hold our application files.
+WORKDIR /app
+
+# --- Install Dependencies ---
+# Copy the requirements file first. This is a Docker optimization.
+# If requirements.txt doesn't change, Docker reuses the cached layer, speeding up builds.
+COPY requirements.txt .
+
+# Install the Python packages.
+RUN pip install --no-cache-dir -r requirements.txt
+
+# --- Copy Application Code ---
+# Copy the rest of the application files into the /app directory in the container.
+COPY . .
+
+# --- Expose Port ---
+# Inform Docker that the container listens on port 5000 at runtime.
+# This is the port our Gunicorn server will run on.
+EXPOSE 5000
+
+# --- Command to Run Application ---
+# This is the command that will be executed when the container starts.
+# We use gunicorn for a production-ready server instead of Flask's built-in one.
+# -w 4: Use 4 worker processes.
+# -b 0.0.0.0:5000: Bind to all network interfaces on port 5000.
+# app:app: Look for the Flask app instance named 'app' in the 'app.py' file.
+CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:5000", "app:app"]

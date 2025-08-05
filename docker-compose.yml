@@ -1,0 +1,20 @@
+# Specifies the version of the Docker Compose file format.
+version: '3.8'
+
+# Defines the services (containers) that make up your application.
+services:
+  # This is the name of our service.
+  mnist-webapp:
+    # Tells Docker Compose to build the image from the Dockerfile in the current directory.
+    build: .
+    # Names the Docker image that will be created.
+    image: mnist-recognizer-app
+    # Names the running container for easy reference.
+    container_name: mnist_webapp_container
+    # Maps port 5001 on your host machine to port 5000 inside the container.
+    # This means you can access the app at http://localhost:5001.
+    ports:
+      - "5001:5000"
+    # Ensures the container restarts automatically if it stops for any reason,
+    # unless it was manually stopped.
+    restart: unless-stopped
