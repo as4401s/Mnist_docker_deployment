@@ -2,7 +2,7 @@
 
 This project demonstrates a complete end-to-end workflow for training a deep learning model, wrapping it in a web API, and deploying it using a fully automated CI/CD pipeline. The application trains a MobileNetV2 model on the classic MNIST dataset and exposes it through a Flask API, containerized with Docker and deployed with Jenkins.
 
-![MNIST App Screenshot](https://placehold.co/800x400/007bff/ffffff?text=MNIST+App+UI)
+![MNIST App Screenshot](image.png)
 
 ---
 
