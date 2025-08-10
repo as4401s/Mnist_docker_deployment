@@ -77,4 +77,4 @@ def predict():
 # --- 5. Run the App ---
 if __name__ == '__main__':
     # Use 0.0.0.0 to make it accessible from outside the container
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5005, debug=True)

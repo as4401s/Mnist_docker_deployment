@@ -13,7 +13,13 @@ def train_mnist_model():
     print("--- Starting Model Training ---")
 
     # --- 1. Device Configuration ---
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    # Check for Apple Silicon (MPS), then CUDA, then fall back to CPU
+    if torch.backends.mps.is_available():
+        device = torch.device("mps")
+    elif torch.cuda.is_available():
+        device = torch.device("cuda")
+    else:
+        device = torch.device("cpu")
     print(f"Using device: {device}")
 
     # --- 2. Data Loading and Transformation ---
@@ -48,7 +54,7 @@ def train_mnist_model():
 
     # --- 5. Training Loop ---
     # Set epochs to 100 for full training as requested, or a smaller number for a quick test.
-    num_epochs = 10 
+    num_epochs = 20
     print(f"Starting training for {num_epochs} epochs...")
 
     for epoch in range(num_epochs):
